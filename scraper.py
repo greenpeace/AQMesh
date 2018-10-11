@@ -32,7 +32,7 @@ logger.addHandler(ch)
 
 # setting up airmonitor credentials -------------------------------------------
 # needs json file with creds, e.g. {"accountID": "ID", "licenceKey": "KEY"}
-with open('airmonitor_credentials.json', 'r') as ac:
+with open("airmonitor_credentials.json", "r") as ac:
     credentials = json.load(ac)
 
 accountID = credentials["accountID"]
