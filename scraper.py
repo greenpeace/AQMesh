@@ -229,6 +229,7 @@ for num, s in enumerate(stations):  # iterating over all stations
         rows = rowify(f"{baseURL}stationdata/{iv}/{UniqueId}", [UniqueId,
                                                                 stationName])
         if len(rows) > 0:  # if data is returned
+            logger.info("Inserting rows for interval [%s, %s].", *iv.split('/'))
             client.insert_rows(table, rows)
             del rows[:]  # freeing memory
 
