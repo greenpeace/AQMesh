@@ -15,7 +15,7 @@ def read_ts(stationID: Union[int, str],
             begin: Optional[dt.datetime] = None,
             end: Optional[dt.datetime] = None,
             query: Union[str, Query, None] = None,
-            resample_rule: str = "12H") -> Tuple[dict, dict]:
+            resample_rule: str = "12H") -> Tuple[dict]:
     """Read timeseries for given data/sensor labels and return in raw/resampled
     form.
 
@@ -68,9 +68,7 @@ def read_ts(stationID: Union[int, str],
 
 
 def bounded_graph(fbforecast: pd.DataFrame, bounds_args: Optional[dict] = None,
-                  forecast_args: Optional[dict] = None) -> Tuple[go.Scatter,
-                                                                 go.Scatter,
-                                                                 go.Scatter]:
+                  forecast_args: Optional[dict] = None) -> Tuple[go.Scatter]:
     """Wrapper for plotly graph objects for bounded graphs.
 
     Intended to use with fbprophet, because the output DataFrame has all
