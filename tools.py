@@ -2,11 +2,12 @@
 
 import datetime as dt
 import pandas as pd
+import plotly.graph_objs as go
 
 from query import Query  # custom
 from pandas.io import gbq  # for running queries
 
-from typing import Optional, Union  # for typing support
+from typing import Tuple, Optional, Union  # for typing support
 
 
 def read_ts(stationID: Union[int, str],
@@ -14,7 +15,7 @@ def read_ts(stationID: Union[int, str],
             begin: Optional[dt.datetime] = None,
             end: Optional[dt.datetime] = None,
             query: Union[str, Query, None] = None,
-            resample_rule: str = "12H") -> tuple:
+            resample_rule: str = "12H") -> Tuple[dict, dict]:
     """Read timeseries for given data/sensor labels and return in raw/resampled
     form.
 
@@ -64,3 +65,52 @@ def read_ts(stationID: Union[int, str],
 
 
 # TODO: wrapper for plotly to create timeseries with upper and lower bound
+
+
+def bounded_graph(fbforecast: pd.DataFrame, bounds_args: Optional[dict] = None,
+                  forecast_args: Optional[dict] = None) -> Tuple[go.Scatter,
+                                                                 go.Scatter,
+                                                                 go.Scatter]:
+    """Wrapper for plotly graph objects for bounded graphs.
+
+    Intended to use with fbprophet, because the output DataFrame has all
+    columns named accordingly.
+
+    Returns a tuple of go.Scatter objects.
+    """
+    if not (hasattr(fbforecast, "ds") or hasattr(fbforecast, "yhat_upper") or
+            hasattr(fbforecast, "yhat_lower") or hasattr(fbforecast, "yhat")):
+        raise RuntimeError("Could not resolve DataFrame, expected column names"
+                           " 'yhat', 'yhat_upper', 'yhat_lower', 'ds'.")
+
+    else:
+        ds = fbforecast.ds  # prevent repeated call
+        if not bounds_args:  # set default values
+            bounds_args = {"marker": {"color": "#444"},
+                           "line": {"width": 0},
+                           "showlegend": False}
+
+        if not forecast_args:  # more default values
+            forecast_args = {"name": "Model+Forecast",
+                             "marker": {"color": "#1F77B4"},
+                             "line": {"width": 1.5}}
+
+        upper_trace = go.Scatter(x=ds,  # time intervals
+                                 y=fbforecast.yhat_upper,
+                                 name="Upper bound",
+                                 **bounds_args)
+
+        lower_trace = go.Scatter(x=ds,
+                                 y=fbforecast.yhat_lower,
+                                 name="Lower bound",
+                                 fill="tonexty",
+                                 fillcolor="rgba(68, 68, 68, 0.3)",  # "rgba(173, 216, 230, 1)",
+                                 **bounds_args)
+        # NOTE: fillcolor needs to be rgba, go.Scatter doesn't understand
+        # 8-digit hex codes
+
+        trace = go.Scatter(x=ds,
+                           y=fbforecast.yhat,
+                           **forecast_args)
+
+    return (upper_trace, lower_trace, trace)
