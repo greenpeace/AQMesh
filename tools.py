@@ -24,8 +24,7 @@ def read_ts(stationID: Union[int, str],
     If query is given, use the given query instead of the prebuilt one.
     """
     # sanitizing
-    if data:
-        data = data if isinstance(data, list) else [data]
+    data = data if isinstance(data, list) else [data]
 
     if not isinstance(begin, dt.datetime) and not query:
         raise TypeError(f"Expected 'begin' to be datetime.datetime object, but"
@@ -36,7 +35,7 @@ def read_ts(stationID: Union[int, str],
     dfs_resampled = dict()
 
     # iterate over all elements in data
-    for sl in data:
+    for sl in data:  # sl = SensorLabel
         print(f"Working on {sl}-dataset...")
         # create query object
         if not query:
@@ -61,10 +60,7 @@ def read_ts(stationID: Union[int, str],
         # resample data
         dfs_resampled[sl] = dfs[sl].resample(resample_rule).mean()
 
-    return dfs, dfs_resampled
-
-
-# TODO: wrapper for plotly to create timeseries with upper and lower bound
+    return (dfs, dfs_resampled)
 
 
 def bounded_graph(fbforecast: pd.DataFrame, bounds_args: Optional[dict] = None,

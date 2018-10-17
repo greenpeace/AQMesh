@@ -8,7 +8,7 @@ class Query:
 
     def __init__(self, SELECT: str, FROM: str, WHERE: str = None,
                  ORDERBY: str = None, LIMIT: Union[int, str] = None,
-                 WITHAS: Tuple[str, str] = None):
+                 WITHAS: Tuple[str] = None):
         """Create an instance of Query."""
         # Initialize attributes
         self._select = None
@@ -44,7 +44,7 @@ class Query:
         return self._withas
 
     @WITHAS.setter
-    def WITHAS(self, WITHAS: Tuple[str, str]) -> None:
+    def WITHAS(self, WITHAS: Tuple[str]) -> None:
         """Set value of WITHAS attribute."""
         if WITHAS is None:
             self._withas = ""
