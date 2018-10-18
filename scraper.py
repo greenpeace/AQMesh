@@ -14,8 +14,8 @@ import datetime as dt
 
 # logger setup ----------------------------------------------------------------
 # GCP logger instance
-gcpLogger = glog.Client()
-gcpLogger.setup_logging()
+gcpClient = glog.Client()
+gcpHandler = gcpClient.get_default_handler()
 
 # create logger instance
 logger = logging.getLogger('airmonitorScraper')
@@ -34,6 +34,8 @@ ch.setFormatter(formatter)
 # add handlers to logger
 logger.addHandler(fh)
 logger.addHandler(ch)
+logger.addHandler(gcpHandler)  # GCP API call
+
 
 # setting up airmonitor credentials -------------------------------------------
 # needs json file with creds, e.g. {"accountID": "ID", "licenceKey": "KEY"}
