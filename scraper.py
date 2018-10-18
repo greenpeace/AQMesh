@@ -6,12 +6,17 @@ import logging
 
 from typing import Union
 from google.cloud import bigquery
+from google.cloud import logging as glog
 from query import Query
 
 import requests as req
 import datetime as dt
 
 # logger setup ----------------------------------------------------------------
+# GCP logger instance
+gcpLogger = glog.Client()
+gcpLogger.setup_logging()
+
 # create logger instance
 logger = logging.getLogger('airmonitorScraper')
 logger.setLevel(logging.DEBUG)
