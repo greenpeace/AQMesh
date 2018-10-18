@@ -10,8 +10,8 @@ from pandas.io import gbq  # for running queries
 from typing import Tuple, Optional, Union  # for typing support
 
 
-def read_ts(stationID: Union[int, str],
-            data: Union[list, str],
+def read_ts(data: Union[list, str],
+            stationID: Union[int, str, None] = None,
             begin: Optional[dt.datetime] = None,
             end: Optional[dt.datetime] = None,
             query: Union[str, Query, None] = None,
@@ -87,7 +87,7 @@ def bounded_graph(fbforecast: pd.DataFrame, bounds_args: Optional[dict] = None,
         if not forecast_args:  # more default values
             forecast_args = {"name": "Model+Forecast",
                              "marker": {"color": "#1F77B4"},
-                             "line": {"width": 1.5}}
+                             "line": {"width": 3}}
 
         upper_trace = go.Scatter(x=ds,  # time intervals
                                  y=fbforecast.yhat_upper,
