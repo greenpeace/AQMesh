@@ -15,24 +15,24 @@ import datetime as dt
 # logger setup ----------------------------------------------------------------
 # GCP logger instance
 gcpClient = glog.Client()
-gcpHandler = gcpClient.get_default_handler()
+gcpHandler = glog.handlers.CloudLoggingHandler(gcpClient, 'airmonitorScraper')
 
 # create logger instance
 logger = logging.getLogger('airmonitorScraper')
 logger.setLevel(logging.DEBUG)
 # create file handler
-fh = logging.FileHandler(f"{logger.name}.log")
-fh.setLevel(logging.INFO)
+# fh = logging.FileHandler(f"{logger.name}.log")
+# fh.setLevel(logging.INFO)
 # create console handler
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 # create formatter
 formatter = logging.Formatter("%(asctime)s\t%(name)s\t%(levelname)s\t"
                               "%(message)s")
-fh.setFormatter(formatter)
+# fh.setFormatter(formatter)
 ch.setFormatter(formatter)
 # add handlers to logger
-logger.addHandler(fh)
+# logger.addHandler(fh)
 logger.addHandler(ch)
 logger.addHandler(gcpHandler)  # GCP API call
 
