@@ -26,8 +26,8 @@ AQMesh
 #### └ visu
 
 - `BigQueryInlineQuery.ipynb`: example of how to use jupyter magic commands to query BigQuery and use the data (here with `matplotlib`).
-- `BigQueryPandasPlotly.ipynb`: example of how to use `pandas.io.gbq` to query BigQuery. Visualising time series using `pandas` and `plotly`. Also trying to forecast timeseries (temperature and carbon monoxide time series in this example) using the package `fbprophet`. 
-- `global_air_quality.ipynb`: uses the historical open data of EPA to do the same as in `BigQueryPandasPlotly.ipynb`, but with a longer historical record to train the model from, resulting in  better forecasts. In this example, a site in St. Louis, Missouri, was used with a hourly temperature record going back to 2013. 
+- `BigQueryPandasPlotly.ipynb`: example of how to use `pandas.io.gbq` to query BigQuery. Visualising time series using `pandas` and `plotly`. Also trying to forecast timeseries (temperature and carbon monoxide time series in this example) using the package `fbprophet`: ![Alt text](visu/saved_plots/station131150_temperature.png?raw=true "Station 131150 temperature timeseries + forecast")
+- `global_air_quality.ipynb`: uses the historical open data of EPA to do the same as in `BigQueryPandasPlotly.ipynb`, but with a longer historical record to train the model from, resulting in  better forecasts. In this example, a site in St. Louis, Missouri, was used with a hourly temperature record going back to 2013: ![Alt text](visu/saved_plots/epa_temp.png?raw=true "EPA site temperature timeseries + forecast")
 
 ### Dependencies
 It is recommended to use `Python` >= 3.7 to avoid problems caused by new syntax features (e.g. string interpolation, type hinting, ...). All dependencies can be installed via `pip` (version numbers are of this writing):
