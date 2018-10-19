@@ -30,7 +30,7 @@ AQMesh
 - `global_air_quality.ipynb`: uses the historical open data of EPA to do the same as in `BigQueryPandasPlotly.ipynb`, but with a longer historical record to train the model from, resulting in  better forecasts. In this example, a site in St. Louis, Missouri, was used with a hourly temperature record going back to 2013. 
 
 ### Dependencies
-It is recommended to use `Python` >= 3.7 to avoid problems caused by new syntax features (string interpolation, type hinting, .. ). All dependencies can be installed via `pip` (version numbers are of this writing):
+It is recommended to use `Python` >= 3.7 to avoid problems caused by new syntax features (e.g. string interpolation, type hinting, ...). All dependencies can be installed via `pip` (version numbers are of this writing):
 
 | package 		  | version   |
 |:-----------------------:| ---------:|
