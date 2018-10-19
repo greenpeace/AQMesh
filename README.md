@@ -28,3 +28,19 @@ AQMesh
 - `BigQueryInlineQuery.ipynb`: example of how to use jupyter magic commands to query BigQuery and use the data (here with `matplotlib`).
 - `BigQueryPandasPlotly.ipynb`: example of how to use `pandas.io.gbq` to query BigQuery. Visualising time series using `pandas` and `plotly`. Also trying to forecast timeseries (temperature and carbon monoxide time series in this example) using the package `fbprophet`. 
 - `global_air_quality.ipynb`: uses the historical open data of EPA to do the same as in `BigQueryPandasPlotly.ipynb`, but with a longer historical record to train the model from, resulting in  better forecasts. In this example, a site in St. Louis, Missouri, was used with a hourly temperature record going back to 2013. 
+
+### Dependencies
+It is recommended to use `Python` >= 3.7 to avoid problems caused by new syntax features (string interpolation, type hinting, .. ). All dependencies can be installed via `pip` (version numbers are of this writing):
+
+| package 		  | version   |
+|:-----------------------:| ---------:|
+| `google-cloud-bigquery` | 1.5.1     |
+| `google-cloud-logging`  | 1.8.0     |
+| `numpy`		  | 1.15.2    |
+| `fbprophet` 		  | 0.3.post2 |
+| `jupyter notebook`      | 5.5.0     |
+| `matplotlib` 	 	  | 3.0.0     |
+| `pandas` 		  | 0.23.4    |
+| `pandas-gbq` 	          | 0.6.1     |
+
+`fbprophet` depends on `pyStan`, which needs quite a lot of RAM during the installation. If you run into problems, consider using a swapfile.
