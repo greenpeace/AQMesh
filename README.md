@@ -44,5 +44,6 @@ It is recommended to use `Python` >= 3.7 to avoid problems caused by new syntax 
 | `matplotlib` 	 	  | 3.0.0     |
 | `pandas` 		  | 0.23.4    |
 | `pandas-gbq` 	          | 0.6.1     |
+| `plotly`		  | 3.2.1     |
 
 `fbprophet` depends on `pyStan`, which needs quite a lot of RAM during the installation (a few GBs). If you run into problems, consider using a swapfile.
