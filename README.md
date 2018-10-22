@@ -1,8 +1,11 @@
 # AQMesh
 
-Two scripts to pipe airmonitor API's data into BigQuery. 
+Two scripts to pipe airmonitor API's data into BigQuery.
 
-### File description
+__First steps__: create a service account on GCP with roles *BigQuery Data Owner* or *BigQuery Admin*, and *Logs Writer*. Create a key for that service account, download the json file and put `export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/json"` (mind the quotation marks) in your bashrc/zshrc. 
+ 
+
+### File descriptions
 ```
 AQMesh
 |    get_history.py
@@ -11,13 +14,12 @@ AQMesh
 |    scraper.py
 |    tools.py
 |
-└────visu 
+└─── visu 
      |    BigQueryInlineQuery.ipynb
      |    BigQueryPandasPlotly.ipynb
      |    global_air_quality.ipynb
   
 ```
-
 - `get_history.py`: requests all historic data (up to today) of the airmonitor API, reformats it and pipes it into BigQuery. If a new table/dataset needs to be created in the process (as specified in the file in the top section), the currently used table schema is read from `schema.py`. Logs are written to a file, per default `airmonitorHistory.log` and to stdout. 
 - `query.py`: contains a class, `Query` that is used to organise and build a string that can be used to query BigQuery. (helper class)
 - `scraper.py`: is in principal almost identical to `get_history.py`; this script should be run by e.g. a __cronjob__, to scrape the latest data off the API. It checks the timestamp of the latest entry in BigQuery for every available station and starts scraping from there. Has logging to `Stackdriver.Logging` enabled, so all logging messages are available in GCP. Also logs to stdout, but not to a file (can still be enabled if wanted though).
@@ -43,4 +45,4 @@ It is recommended to use `Python` >= 3.7 to avoid problems caused by new syntax 
 | `pandas` 		  | 0.23.4    |
 | `pandas-gbq` 	          | 0.6.1     |
 
-`fbprophet` depends on `pyStan`, which needs quite a lot of RAM during the installation. If you run into problems, consider using a swapfile.
+`fbprophet` depends on `pyStan`, which needs quite a lot of RAM during the installation (a few GBs). If you run into problems, consider using a swapfile.
